@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Global Spec Comparison</title>
+  <title>Spec & Printer Comparison</title>
   <style>
     body {
       background-color: #0b0d14;
@@ -86,6 +86,11 @@
       margin: 10px 0;
     }
 
+    a {
+      color: #63b3ed;
+      text-decoration: underline;
+    }
+
     @media (max-width: 700px) {
       .form-container {
         flex-direction: column;
@@ -95,7 +100,7 @@
   </style>
 </head>
 <body>
-  <h2>Compare Global Computer Specs</h2>
+  <h2>Compare Computer Specs</h2>
   <div class="form-container">
     <form id="specForm1">
       <h3>Your Build</h3>
@@ -181,31 +186,30 @@
   </div>
 
   <div class="results" id="results" style="display:none;">
-    <h3>Comparison Results</h3>
+    <h3>Computer Comparison Results</h3>
     <p id="cpuResult"></p>
     <p id="gpuResult"></p>
     <p id="ramResult"></p>
     <p id="storageResult"></p>
     <p id="osResult"></p>
     <p id="warrantyResult"></p>
+    <p id="overallResult"></p>
+    <p>🛒 <a href="https://www.newegg.com/" target="_blank">Shop Computers on Newegg</a> or <a href="https://www.bestbuy.com/site/desktop-computers/all-desktops/pcmcat143400050013.c?id=pcmcat143400050013" target="_blank">Best Buy</a></p>
   </div>
 
-  <script>
-    const cpuScores = {
-      "Intel i3": 3, "Intel i5": 5, "Intel i7": 7, "Intel i9": 9,
-      "AMD Ryzen 5": 5, "AMD Ryzen 7": 7, "AMD Ryzen 9": 9,
-      "Apple M1": 6, "Apple M2": 8, "Apple M3": 9
-    };
+  <h2 style="margin-top:60px;">Compare Printers</h2>
+  <div class="form-container">
+    <form id="printerForm1">
+      <h3>Your Printer</h3>
+      <label for="printer1">Model</label>
+      <select id="printer1">
+        <option>HP DeskJet 2852e</option>
+        <option>Canon PIXMA TR4722</option>
+        <option>Epson EcoTank ET-2803</option>
+        <option>Brother HL-L2465DW</option>
+      </select>
+    </form>
 
-    const gpuScores = {
-      "Integrated Graphics": 2, "NVIDIA GTX 1650": 4, "NVIDIA RTX 3060": 7,
-      "NVIDIA RTX 4090": 10, "AMD Radeon RX 6600": 6, "AMD Radeon RX 7900": 9
-    };
-
-    const ramScores = {
-      "8GB DDR4": 3, "16GB DDR4": 5, "32GB DDR4": 6,
-      "16GB DDR5": 6, "32GB DDR5": 8, "64GB DDR5": 10
-    };
-
-    const storageScores = {
-      "512GB SSD": 3, "1TB SSD": 5, "2TB SSD":
+    <form id="printerForm2">
+      <h3>Comparison Printer</h3>
+      <label for="printer2">Model</
