@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Customize Your Computer Specs</title>
+  <title>Compare Computer Specs</title>
   <style>
     body {
       background-color: #0b0d14;
@@ -18,13 +18,20 @@
       margin-bottom: 30px;
     }
 
+    .form-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+
     form {
-      max-width: 600px;
-      margin: auto;
+      flex: 1 1 300px;
       background-color: #1c1e26;
       padding: 20px;
       border-radius: 8px;
       border-left: 5px solid #1E90FF;
+      min-width: 280px;
     }
 
     label {
@@ -58,39 +65,110 @@
       background-color: #63b3ed;
       color: #0b0d14;
     }
+
+    .results {
+      margin-top: 40px;
+      background-color: #1c1e26;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 5px solid #1E90FF;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .results h3 {
+      color: #1E90FF;
+      margin-bottom: 20px;
+    }
+
+    .results p {
+      margin: 10px 0;
+    }
+
+    @media (max-width: 700px) {
+      .form-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
   </style>
 </head>
 <body>
-  <h2>Customize Your Computer Specs</h2>
-  <form>
-    <label for="cpu">CPU</label>
-    <select id="cpu" name="cpu">
-      <option>Intel i9</option>
-      <option>AMD Ryzen 9</option>
-      <option>Apple M2</option>
-    </select>
+  <h2>Compare Computer Specs</h2>
+  <div class="form-container">
+    <form id="specForm1">
+      <h3>Your Build</h3>
+      <label for="cpu1">CPU</label>
+      <select id="cpu1"><option>Intel i9</option><option>AMD Ryzen 9</option><option>Apple M2</option></select>
 
-    <label for="gpu">GPU</label>
-    <select id="gpu" name="gpu">
-      <option>NVIDIA RTX 4090</option>
-      <option>AMD Radeon RX 7900</option>
-      <option>Integrated Graphics</option>
-    </select>
+      <label for="gpu1">GPU</label>
+      <select id="gpu1"><option>NVIDIA RTX 4090</option><option>AMD Radeon RX 7900</option><option>Integrated Graphics</option></select>
 
-    <label for="ram">RAM</label>
-    <input type="text" id="ram" name="ram" placeholder="e.g., 32GB DDR5" />
+      <label for="ram1">RAM</label>
+      <input type="text" id="ram1" placeholder="e.g., 32GB DDR5" />
 
-    <label for="storage">Storage</label>
-    <input type="text" id="storage" name="storage" placeholder="e.g., 1TB NVMe SSD" />
+      <label for="storage1">Storage</label>
+      <input type="text" id="storage1" placeholder="e.g., 1TB NVMe SSD" />
 
-    <label for="os">Operating System</label>
-    <select id="os" name="os">
-      <option>Windows 11</option>
-      <option>macOS Sonoma</option>
-      <option>Linux (Ubuntu)</option>
-    </select>
+      <label for="os1">Operating System</label>
+      <select id="os1"><option>Windows 11</option><option>macOS Sonoma</option><option>Linux (Ubuntu)</option></select>
+    </form>
 
-    <button type="submit">Save Specs</button>
-  </form>
+    <form id="specForm2">
+      <h3>Comparison Build</h3>
+      <label for="cpu2">CPU</label>
+      <select id="cpu2"><option>Intel i9</option><option>AMD Ryzen 9</option><option>Apple M2</option></select>
+
+      <label for="gpu2">GPU</label>
+      <select id="gpu2"><option>NVIDIA RTX 4090</option><option>AMD Radeon RX 7900</option><option>Integrated Graphics</option></select>
+
+      <label for="ram2">RAM</label>
+      <input type="text" id="ram2" placeholder="e.g., 32GB DDR5" />
+
+      <label for="storage2">Storage</label>
+      <input type="text" id="storage2" placeholder="e.g., 1TB NVMe SSD" />
+
+      <label for="os2">Operating System</label>
+      <select id="os2"><option>Windows 11</option><option>macOS Sonoma</option><option>Linux (Ubuntu)</option></select>
+    </form>
+  </div>
+
+  <div style="text-align:center;">
+    <button onclick="compareSpecs()">🔍 Compare Specs</button>
+  </div>
+
+  <div class="results" id="results" style="display:none;">
+    <h3>Comparison Results</h3>
+    <p id="cpuResult"></p>
+    <p id="gpuResult"></p>
+    <p id="ramResult"></p>
+    <p id="storageResult"></p>
+    <p id="osResult"></p>
+  </div>
+
+  <script>
+    function compareSpecs() {
+      const cpu1 = document.getElementById("cpu1").value;
+      const cpu2 = document.getElementById("cpu2").value;
+      const gpu1 = document.getElementById("gpu1").value;
+      const gpu2 = document.getElementById("gpu2").value;
+      const ram1 = document.getElementById("ram1").value.trim();
+      const ram2 = document.getElementById("ram2").value.trim();
+      const storage1 = document.getElementById("storage1").value.trim();
+      const storage2 = document.getElementById("storage2").value.trim();
+      const os1 = document.getElementById("os1").value;
+      const os2 = document.getElementById("os2").value;
+
+      document.getElementById("cpuResult").textContent = cpu1 === cpu2 ? `✅ Both builds use ${cpu1}` : `🆚 CPU: ${cpu1} vs ${cpu2}`;
+      document.getElementById("gpuResult").textContent = gpu1 === gpu2 ? `✅ Both builds use ${gpu1}` : `🆚 GPU: ${gpu1} vs ${gpu2}`;
+      document.getElementById("ramResult").textContent = ram1 === ram2 ? `✅ Both builds have ${ram1}` : `🆚 RAM: ${ram1} vs ${ram2}`;
+      document.getElementById("storageResult").textContent = storage1 === storage2 ? `✅ Both builds have ${storage1}` : `🆚 Storage: ${storage1} vs ${storage2}`;
+      document.getElementById("osResult").textContent = os1 === os2 ? `✅ Both use ${os1}` : `🆚 OS: ${os1} vs ${os2}`;
+
+      document.getElementById("results").style.display = "block";
+    }
+  </script>
 </body>
 </html>
+
