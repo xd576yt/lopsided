@@ -40,7 +40,7 @@
       font-weight: bold;
     }
 
-    select, input {
+    select {
       width: 100%;
       padding: 10px;
       margin-top: 8px;
@@ -113,15 +113,26 @@
       </select>
 
       <label for="ram1">RAM</label>
-      <input type="text" id="ram1" placeholder="e.g., 32GB DDR5" />
+      <select id="ram1">
+        <option>8GB DDR4</option><option>16GB DDR4</option><option>32GB DDR4</option>
+        <option>16GB DDR5</option><option>32GB DDR5</option><option>64GB DDR5</option>
+      </select>
 
       <label for="storage1">Storage</label>
-      <input type="text" id="storage1" placeholder="e.g., 1TB NVMe SSD" />
+      <select id="storage1">
+        <option>512GB SSD</option><option>1TB SSD</option><option>2TB SSD</option>
+        <option>1TB NVMe SSD</option><option>2TB NVMe SSD</option><option>4TB NVMe SSD</option>
+      </select>
 
       <label for="os1">Operating System</label>
       <select id="os1">
         <option>Windows 11</option><option>macOS Sonoma</option><option>Linux (Ubuntu)</option>
         <option>Linux (Arch)</option><option>ChromeOS</option>
+      </select>
+
+      <label for="warranty1">Warranty</label>
+      <select id="warranty1">
+        <option>No Warranty</option><option>1 Year</option><option>2 Years</option><option>3 Years</option>
       </select>
     </form>
 
@@ -141,15 +152,26 @@
       </select>
 
       <label for="ram2">RAM</label>
-      <input type="text" id="ram2" placeholder="e.g., 32GB DDR5" />
+      <select id="ram2">
+        <option>8GB DDR4</option><option>16GB DDR4</option><option>32GB DDR4</option>
+        <option>16GB DDR5</option><option>32GB DDR5</option><option>64GB DDR5</option>
+      </select>
 
       <label for="storage2">Storage</label>
-      <input type="text" id="storage2" placeholder="e.g., 1TB NVMe SSD" />
+      <select id="storage2">
+        <option>512GB SSD</option><option>1TB SSD</option><option>2TB SSD</option>
+        <option>1TB NVMe SSD</option><option>2TB NVMe SSD</option><option>4TB NVMe SSD</option>
+      </select>
 
       <label for="os2">Operating System</label>
       <select id="os2">
         <option>Windows 11</option><option>macOS Sonoma</option><option>Linux (Ubuntu)</option>
         <option>Linux (Arch)</option><option>ChromeOS</option>
+      </select>
+
+      <label for="warranty2">Warranty</label>
+      <select id="warranty2">
+        <option>No Warranty</option><option>1 Year</option><option>2 Years</option><option>3 Years</option>
       </select>
     </form>
   </div>
@@ -165,6 +187,7 @@
     <p id="ramResult"></p>
     <p id="storageResult"></p>
     <p id="osResult"></p>
+    <p id="warrantyResult"></p>
   </div>
 
   <script>
@@ -179,30 +202,10 @@
       "NVIDIA RTX 4090": 10, "AMD Radeon RX 6600": 6, "AMD Radeon RX 7900": 9
     };
 
-    function compareSpecs() {
-      const cpu1 = document.getElementById("cpu1").value;
-      const cpu2 = document.getElementById("cpu2").value;
-      const gpu1 = document.getElementById("gpu1").value;
-      const gpu2 = document.getElementById("gpu2").value;
-      const ram1 = document.getElementById("ram1").value.trim();
-      const ram2 = document.getElementById("ram2").value.trim();
-      const storage1 = document.getElementById("storage1").value.trim();
-      const storage2 = document.getElementById("storage2").value.trim();
-      const os1 = document.getElementById("os1").value;
-      const os2 = document.getElementById("os2").value;
+    const ramScores = {
+      "8GB DDR4": 3, "16GB DDR4": 5, "32GB DDR4": 6,
+      "16GB DDR5": 6, "32GB DDR5": 8, "64GB DDR5": 10
+    };
 
-      const cpuResult = cpuScores[cpu1] > cpuScores[cpu2]
-        ? `🏆 CPU: ${cpu1} is better than ${cpu2}`
-        : cpuScores[cpu1] < cpuScores[cpu2]
-        ? `🏆 CPU: ${cpu2} is better than ${cpu1}`
-        : `✅ Both CPUs are equal (${cpu1})`;
-
-      const gpuResult = gpuScores[gpu1] > gpuScores[gpu2]
-        ? `🏆 GPU: ${gpu1} is better than ${gpu2}`
-        : gpuScores[gpu1] < gpuScores[gpu2]
-        ? `🏆 GPU: ${gpu2} is better than ${gpu1}`
-        : `✅ Both GPUs are equal (${gpu1})`;
-
-      const ramResult = ram1 === ram2 ? `✅ Both builds have ${ram1}` : `🆚 RAM: ${ram1} vs ${ram2}`;
-      const storageResult = storage1 === storage2 ? `✅ Both builds have ${storage1}` : `🆚 Storage: ${storage1} vs ${storage2}`;
-     
+    const storageScores = {
+      "512GB SSD": 3, "1TB SSD": 5, "2TB SSD":
