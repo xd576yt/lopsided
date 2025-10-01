@@ -160,10 +160,10 @@
   </div>
 
   <div style="text-align:center;">
-    <button onclick="compareSpecs()">🔍 Compare Specs</button>
+    <button id="compareAllBtn" onclick="compareAll()">🔍 Compare Specs</button>
   </div>
 
-  <div class="results" id="compareSpecs" style="display:none;">
+  <div class="results" id="computerResults" style="display:none;">
     <h3>Computer Comparison Results</h3>
     <p id="cpuResult"></p>
     <p id="gpuResult"></p>
@@ -186,11 +186,122 @@
         <option>Epson EcoTank ET-2803</option>
         <option>Brother HL-L2465DW</option>
       </select>
+      <label for="color1">Color</label>
+      <select id="color1">
+        <option>Color</option>
+        <option>Black &amp; White</option>
+      </select>
+
+      <label for="connectivity1">Connectivity</label>
+      <select id="connectivity1">
+        <option>USB</option>
+        <option>Wi-Fi</option>
+        <option>Ethernet</option>
+      </select>
     </form>
 
     <form id="printerForm2">
       <h3>Comparison Printer</h3>
       <label for="printer2">Model</label>
       <select id="printer2">
-        <option>HP DeskJet 
+        <option>HP DeskJet 2852e</option>
+        <option>Canon PIXMA TR4722</option>
+        <option>Epson EcoTank ET-2803</option>
+        <option>Brother HL-L2465DW</option>
+      </select>
+
+      <label for="color2">Color</label>
+      <select id="color2">
+        <option>Color</option>
+        <option>Black &amp; White</option>
+      </select>
+
+      <label for="connectivity2">Connectivity</label>
+      <select id="connectivity2">
+        <option>USB</option>
+        <option>Wi-Fi</option>
+        <option>Ethernet</option>
+      </select>
+    </form>
+  </div>
+
+  <div style="text-align:center; margin-top:18px;">
+    <button onclick="comparePrinters()">🔍 Compare Printers</button>
+  </div>
+
+  <div class="results" id="printersResults" style="display:none;">
+    <h3>Printer Comparison Results</h3>
+    <p id="printerModelResult"></p>
+    <p id="printerColorResult"></p>
+    <p id="printerConnResult"></p>
+  </div>
+
+  <script>
+    function compareSpecs() {
+      const cpu1 = document.getElementById('cpu1').value;
+      const cpu2 = document.getElementById('cpu2').value;
+      const gpu1 = document.getElementById('gpu1').value;
+      const gpu2 = document.getElementById('gpu2').value;
+      const ram1 = document.getElementById('ram1').value;
+      const ram2 = document.getElementById('ram2').value;
+      const storage1 = document.getElementById('storage1').value;
+      const storage2 = document.getElementById('storage2').value;
+      const os1 = document.getElementById('os1').value;
+      const os2 = document.getElementById('os2').value;
+      const warranty1 = document.getElementById('warranty1').value;
+      const warranty2 = document.getElementById('warranty2').value;
+
+      document.getElementById('cpuResult').textContent = cpu1 === cpu2 ? `✅ Both use ${cpu1}` : `🆚 CPU: ${cpu1} vs ${cpu2}`;
+      document.getElementById('gpuResult').textContent = gpu1 === gpu2 ? `✅ Both use ${gpu1}` : `🆚 GPU: ${gpu1} vs ${gpu2}`;
+      document.getElementById('ramResult').textContent = ram1 === ram2 ? `✅ Both have ${ram1}` : `🆚 RAM: ${ram1} vs ${ram2}`;
+      document.getElementById('storageResult').textContent = storage1 === storage2 ? `✅ Both have ${storage1}` : `🆚 Storage: ${storage1} vs ${storage2}`;
+      document.getElementById('osResult').textContent = os1 === os2 ? `✅ Both use ${os1}` : `🆚 OS: ${os1} vs ${os2}`;
+      document.getElementById('warrantyResult').textContent = warranty1 === warranty2 ? `✅ Same warranty: ${warranty1}` : `🆚 Warranty: ${warranty1} vs ${warranty2}`;
+
+      // Simple overall suggestion
+      let score = 0;
+      if (cpu1 === cpu2) score++;
+      if (gpu1 === gpu2) score++;
+      if (ram1 === ram2) score++;
+      if (storage1 === storage2) score++;
+      if (os1 === os2) score++;
+      if (warranty1 === warranty2) score++;
+
+      const overall = score >= 5 ? 'They are very similar.' : score >= 3 ? 'They are somewhat similar.' : 'They are quite different.';
+      document.getElementById('overallResult').textContent = `🔎 Overall: ${overall}`;
+
+      document.getElementById('computerResults').style.display = 'block';
+    }
+
+    function comparePrinters() {
+      const p1 = document.getElementById('printer1').value;
+      const p2 = document.getElementById('printer2').value;
+      const color1 = document.getElementById('color1').value;
+      const color2 = document.getElementById('color2').value;
+      const conn1 = document.getElementById('connectivity1').value;
+      const conn2 = document.getElementById('connectivity2').value;
+
+      document.getElementById('printerModelResult').textContent = p1 === p2 ? `✅ Both: ${p1}` : `🆚 Model: ${p1} vs ${p2}`;
+      document.getElementById('printerColorResult').textContent = color1 === color2 ? `✅ Color support: ${color1}` : `🆚 Color: ${color1} vs ${color2}`;
+      document.getElementById('printerConnResult').textContent = conn1 === conn2 ? `✅ Connectivity: ${conn1}` : `🆚 Connectivity: ${conn1} vs ${conn2}`;
+
+      document.getElementById('printersResults').style.display = 'block';
+    }
+
+    function compareAll() {
+      // Run both comparisons so the main button compares computers and printers
+      try {
+        compareSpecs();
+      } catch (e) {
+        console.error('compareSpecs failed:', e);
+      }
+      try {
+        comparePrinters();
+      } catch (e) {
+        console.error('comparePrinters failed:', e);
+      }
+    }
+  </script>
+  </body>
+  </html>
 
